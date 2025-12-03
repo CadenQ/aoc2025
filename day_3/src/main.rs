@@ -41,7 +41,15 @@ fn part2(bank: &Vec<char>) -> i64 {
 
     for cur_digit in 0..digits.len() {
         // Iterate through the remaining characters in the bank to find next highest value
-        for (i, c) in bank[(digits[cur_digit].0 as usize)..(12 - digits[cur_digit].0 as usize)].iter().enumerate() {
+        // 12345678901234567
+        let index = if cur_digit == 0 {
+            0
+        } else {
+            digits[cur_digit-1].0
+        };
+        let upper_bound = bank.len() - 12 + index;
+
+        for (i, c) in bank[index..upper_bound].iter().enumerate() {
             if (*c) as u32 > digits[cur_digit].1 as u32 {
                 digits[cur_digit] = (i, *c);
             }
@@ -52,6 +60,6 @@ fn part2(bank: &Vec<char>) -> i64 {
     let _ = digits.map(|f| {
         final_num.push(f.1);
     });
-    
+    println!("final num: '{}'", final_num);
     final_num.parse().unwrap()
 }
