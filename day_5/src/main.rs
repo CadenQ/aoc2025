@@ -62,12 +62,13 @@ fn part2(ranges: &Vec<(u64, u64)>) -> u64 {
     for range in sorted_ranges {
         let last_index = opt_ranges.len()-1;
         
-        // 1. If range fits in the last optimized range, ignore it.
-        if (opt_ranges[last_index].0..=opt_ranges[last_index].1).contains(&range.0) && (opt_ranges[last_index].0..=opt_ranges[last_index].1).contains(&range.1) {
-            continue;
-        // 2. If range's lower bound fits in the last optimized range, but not the upper, then increase last optimized range's upper bound.
-        } else if (opt_ranges[last_index].0..=opt_ranges[last_index].1).contains(&range.0) && !(opt_ranges[last_index].0..=opt_ranges[last_index].1).contains(&range.1) {
-            opt_ranges[last_index].1 = range.1;
+        if (opt_ranges[last_index].0..=opt_ranges[last_index].1).contains(&range.0) {
+            // 1. If range fits in the last optimized range, ignore it.
+            // 2. If range's lower bound fits in the last optimized range, 
+            //    but not the upper, then increase last optimized range's upper bound.
+            if !(opt_ranges[last_index].0..=opt_ranges[last_index].1).contains(&range.1) {
+                opt_ranges[last_index].1 = range.1;
+            }
         // 3. Else, add the new range to the optimized ranges.
         } else {
             opt_ranges.push(range);
