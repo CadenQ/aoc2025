@@ -6,12 +6,16 @@ fn main() -> std::io::Result<()> {
     let data: Vec<&str> = contents.lines().collect();
     let split_index = data.iter().enumerate().find(|p| (*p.1) == "").unwrap().0;
 
+    // Retrieve all ranges as strings
     let ranges: Vec<String> = data[0..split_index].iter().map(|r| r.to_string()).collect();
+
+    // Redefine ranges as tuples (l, u) where l is the lower bound and u is the upper bound.
     let ranges: Vec<(u64, u64)> = ranges.iter().map(|r| {
         let bounds: Vec<&str> = r.split('-').collect();
         (bounds[0].parse().unwrap(), bounds[1].parse().unwrap())
     }).collect();
 
+    // Grab IDs for part 1
     let ids = &data[split_index+1..];
     
     println!("count part 1: {}", part1(&ranges, ids));
@@ -55,7 +59,6 @@ fn part2(ranges: &Vec<(u64, u64)>) -> u64 {
     // Add anchor for optimized ranges
     let mut opt_ranges: Vec<(u64, u64)> = vec![sorted_ranges[0].clone()];
 
-
     for range in sorted_ranges {
         let last_index = opt_ranges.len()-1;
         
@@ -71,5 +74,7 @@ fn part2(ranges: &Vec<(u64, u64)>) -> u64 {
         }
     }
 
+    // Map all ranges to how many numbers they included, then sum it up together.
+    // e.g. given [1-3, 5-6], map to (3 - 1 + 1) + (6 - 5 + 1) = 3 + 2 = 5.
     opt_ranges.iter().map(|r| r.1 - r.0 + 1).sum::<u64>()
 }
