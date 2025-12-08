@@ -91,11 +91,6 @@ fn part1(data: &Vec<String>, num_of_connections: usize) -> usize {
         }
     });
 
-    println!("{}, {}, {}", circuits[0].len(), circuits[1].len(), circuits[2].len());
-    println!("{:?}", circuits[0]);
-    println!("{:?}", circuits[1]);
-    println!("{:?}", circuits[2]);
-    
     circuits[0].len() * circuits[1].len() * circuits[2].len()
 }
 
