@@ -3,16 +3,15 @@ use std::fs;
 fn main() -> std::io::Result<()> {
     let contents = fs::read_to_string("input.txt")?;
 
-    let grid: Vec<&str> = contents.lines().collect();
-    let grid: Vec<String> = grid.iter().map(|d| d.to_string()).collect();
+    let coords: Vec<&str> = contents.lines().collect();
+    let coords: Vec<String> = coords.into_iter().map(|d| d.to_string()).collect();
 
-
-    println!("part 1 results: {}", part1(&grid));
+    println!("part 1 results: {}", part1(&coords));
     Ok(())
 }
 
-fn part1(grid: &Vec<String>) -> usize {
-    let red_coords: Vec<(isize, isize)> = grid.iter().map(|s| {
+fn part1(coords: &Vec<String>) -> isize {
+    let red_coords: Vec<(isize, isize)> = coords.iter().map(|s| {
         let coords: Vec<&str> = s.split(',').collect();
         (coords[0].parse().unwrap(), coords[1].parse().unwrap())
     }).collect();
@@ -28,5 +27,5 @@ fn part1(grid: &Vec<String>) -> usize {
         }
     }
 
-    best_area as usize
+    best_area
 }
