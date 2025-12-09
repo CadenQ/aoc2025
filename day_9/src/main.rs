@@ -29,3 +29,14 @@ fn part1(coords: &Vec<String>) -> isize {
 
     best_area
 }
+
+
+// Assumptions we can make:
+// 1. The green tiles will always connect the red tiles in a loop.
+// 2. The inside of the loop will be filled with green tiles.
+// 3. The red tiles now act as the corners for the whole perimeter of the green tiles.
+
+fn part2(coords: &Vec<String>) {
+    // Determine how to grab only rectanges with green and red tiles
+    // Honestly I got no idea how to figure this out...
+}
